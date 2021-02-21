@@ -20,15 +20,22 @@ contract TieredProfitSplitter {
     function deposit() public payable {
         uint points = msg.value / 100; // Calculates rudimentary percentage by dividing msg.value into 100 units
         uint total;
-        uint amount;
+        uint amount_one;
+        uint amount_two;
+        uint amount_three;
 
         // @TODO: Calculate and transfer the distribution percentage
-        // Step 1: Set amount to equal `points` * the number of percentage points for this employee
+        amount_one = points * 60;
+        amount_two = points * 25;
+        amount_three = points * 15;
+        
         // Step 2: Add the `amount` to `total` to keep a running total
+        total += amount_one + amount_two + amount_three;
         // Step 3: Transfer the `amount` to the employee
-
+        employee_one.transfer(amount_one);
         // @TODO: Repeat the previous steps for `employee_two` and `employee_three`
-        // Your code here!
+        employee_two.transfer(amount_two);
+        employee_three.transfer(amount_three);
 
         employee_one.transfer(msg.value - total); // ceo gets the remaining wei
     }
